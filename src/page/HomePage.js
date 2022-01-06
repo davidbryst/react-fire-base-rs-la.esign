@@ -1,29 +1,28 @@
-import { Col, Stack, Card, Button } from "react-bootstrap";
-
-import img from '../asset/download.svg';
-
+import { Col, Stack, Card } from "react-bootstrap";
 import Post from '../components/Post';
+
+import { useRecoilValue } from 'recoil';
+import postsState from '../setup/recoil/postsState';
  
 function Home() {
+    const posts = useRecoilValue(postsState);
 
     return (
-        
-        <Col md={5}>
+        <Col>
             <Stack>              
-                <Card>  
+                <Card className='border-0 border-c radius-h-c'>  
                     <Card.Body>
                         <Stack direction="horizontal">
-                            <Card.Text className="my-auto" >Home</Card.Text>
-                            <Button className='ms-auto'>♣</Button>
+                            <Card.Text className="my-auto title-c" >Home</Card.Text>
+                            {/* <button className='btn-c border-c ms-auto'>♣</button> */}
                         </Stack>
                     </Card.Body>
                 </Card>
 
                 <div>
-                    <Post userImg={img} className="" />
-                    <Post userImg={img} className="" />
-                    <Post userImg={img} className="" />
-                    <Post userImg={img} className="" />
+                    {posts.map((post) => (
+                        <Post key={post.id} post={post} className="" />
+                    ))}
                 </div>
             </Stack>
         </Col>
